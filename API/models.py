@@ -76,6 +76,13 @@ class Sale(models.Model):
     sold_quantity = models.IntegerField(default=0)
 
 
+
+class Employee(models.Model):
+    name = models.CharField(max_length = 200)
+    phone = models.CharField(max_length = 12)
+    address = models.CharField(max_length = 200)
+    password = models.CharField(max_length = 200,default='')
+
 def pre_save_create_new_sku(sender, instance, *args, **kwargs):
     if not instance.sku:
         instance.sku= unique_sku_generator(instance)
