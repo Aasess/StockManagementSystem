@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Vendor,Item
-from .serializers import VendorSerializer,ItemSerializer
+from .models import Vendor,Item,Stock,Sale
+from .serializers import VendorSerializer,ItemSerializer,StockSerializer,SaleSerializer
 
 # Create your views here.
 class VendorViewSet(viewsets.ViewSet):
@@ -105,7 +105,7 @@ class ItemViewSet(viewsets.ViewSet):
         except:
             response_dict = {
                 "error": True,
-                "message": "Error!! item cannot be deleted."
+                "message": "Error!! item not found."
             }
         
         return Response(response_dict)
@@ -157,6 +157,91 @@ class ItemViewSet(viewsets.ViewSet):
             response_dict = {
                 "error": True,
                 "message": "Error!! Item cannot be deleted."
+            }
+        
+        return Response(response_dict)
+
+
+
+
+class StockViewSet(viewsets.ViewSet): 
+    def list(self,request):
+        stocks = Stock.objects.all()
+        #serialize them to json
+        serializer = StockSerializer(stocks,many = True, context = {"request":request})
+        #return json response
+        response_dict = {
+            "error": False,
+            "message": "All stocks list data",
+            "data": serializer.data
+        }
+        return Response(response_dict)
+
+    def retrieve(self,request,pk):
+        try:
+            stock = Stock.objects.get(id=pk)
+            #serialize them to json
+            serializer = StockSerializer(stock,context = {"request":request})
+            response_dict = {
+                    "error": False,
+                    "message": "stock item found sucessfully!!!",
+                    "data": serializer.data
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!! stock item not found."
+            }
+        
+        return Response(response_dict)
+
+    def create(self,request):
+        try:
+            serializer = StockSerializer(data = request.data)
+            print(serializer)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            response_dict = {
+                    "error": False,
+                    "message": "stock item added sucessfully!!!"
+            }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!!stock item cannot be added."
+            }
+        return Response(response_dict)
+
+    def update(self,request,pk):
+        try:
+            stock = Stock.objects.get(id=pk)
+            serializer = StockSerializer(stock,data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                response_dict = {
+                    "error": False,
+                    "message": "stock item updated sucessfully!!!"
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!! stock item cannot be updated."
+            }
+        
+        return Response(response_dict)
+
+    def delete(self,request,pk):
+        try:
+            stock = Stock.objects.get(id=pk)
+            stock.delete()
+            response_dict = {
+                    "error": False,
+                    "message": "stock item deleted sucessfully!!!"
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!!stock item cannot be deleted."
             }
         
         return Response(response_dict)
