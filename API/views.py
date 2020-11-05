@@ -245,3 +245,88 @@ class StockViewSet(viewsets.ViewSet):
             }
         
         return Response(response_dict)
+
+
+
+
+class SaleViewSet(viewsets.ViewSet): 
+    def list(self,request):
+        sales = Sale.objects.all()
+        #serialize them to json
+        serializer = SaleSerializer(sales,many = True, context = {"request":request})
+        #return json response
+        response_dict = {
+            "error": False,
+            "message": "All sales list data",
+            "data": serializer.data
+        }
+        return Response(response_dict)
+
+    def retrieve(self,request,pk):
+        try:
+            sale = Sale.objects.get(id=pk)
+            #serialize them to json
+            serializer = SaleSerializer(sale,context = {"request":request})
+            response_dict = {
+                    "error": False,
+                    "message": "sold item found sucessfully!!!",
+                    "data": serializer.data
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!! sold item not found."
+            }
+        
+        return Response(response_dict)
+
+    def create(self,request):
+        try:
+            serializer = SaleSerializer(data = request.data)
+            print(serializer)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            response_dict = {
+                    "error": False,
+                    "message": "sold item added sucessfully!!!"
+            }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!!sold item cannot be added."
+            }
+        return Response(response_dict)
+
+    def update(self,request,pk):
+        try:
+            sale = Sale.objects.get(id=pk)
+            serializer = SaleSerializer(sale,data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                response_dict = {
+                    "error": False,
+                    "message": "sold item updated sucessfully!!!"
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!! sold item cannot be updated."
+            }
+        
+        return Response(response_dict)
+
+    def delete(self,request,pk):
+        try:
+            sale = Sale.objects.get(id=pk)
+            sale.delete()
+            response_dict = {
+                    "error": False,
+                    "message": "sold item deleted sucessfully!!!"
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!!sold item cannot be deleted."
+            }
+        
+        return Response(response_dict)
