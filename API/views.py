@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Vendor,Item,Stock,Sale
 from .serializers import VendorSerializer,ItemSerializer,StockSerializer,SaleSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class VendorViewSet(viewsets.ViewSet):

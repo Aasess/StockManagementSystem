@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
 from API import views
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 
 router = routers.DefaultRouter()
 router.register("vendor",views.VendorViewSet,basename="vendor")
@@ -27,5 +28,6 @@ router.register("sale",views.SaleViewSet,basename="sale")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include(router.urls)),
-   
+    path('api/gettoken/',TokenObtainPairView.as_view(),name="gettoken"), #path for getting api token
+    path('api/refreshtoken/',TokenRefreshView.as_view(),name="refreshtoken")
 ]
