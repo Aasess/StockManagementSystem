@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'API',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'Account',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
