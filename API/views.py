@@ -84,6 +84,8 @@ class VendorViewSet(viewsets.ViewSet):
 
 
 class ItemViewSet(viewsets.ViewSet): 
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         items = Item.objects.all()
         #serialize them to json
@@ -169,6 +171,8 @@ class ItemViewSet(viewsets.ViewSet):
 
 
 class StockViewSet(viewsets.ViewSet): 
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         stocks = Stock.objects.all()
         #serialize them to json
@@ -254,6 +258,8 @@ class StockViewSet(viewsets.ViewSet):
 
 
 class SaleViewSet(viewsets.ViewSet): 
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         sales = Sale.objects.all()
         #serialize them to json
