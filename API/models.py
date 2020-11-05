@@ -45,7 +45,7 @@ class Item(models.Model):
     is_stock = models.IntegerField(choices = stock_choices)
 
     def __str__(self):
-        return self.name
+        return self.item_name
 
     def check_instock(self):
         if(self.remaining_quantity > 0 ):
