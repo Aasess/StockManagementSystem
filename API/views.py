@@ -3,9 +3,12 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Vendor,Item,Stock,Sale
 from .serializers import VendorSerializer,ItemSerializer,StockSerializer,SaleSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Create your views here.
 class VendorViewSet(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         vendors = Vendor.objects.all()
         #serialize them to json
