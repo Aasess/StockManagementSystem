@@ -4,4 +4,4 @@ from django.shortcuts import render
 # Create your views here.
 @login_required(login_url='/account/login/')
 def home(request):
-    return render(request,'Frontend/home.html',{'error':False})
+    return render(request,'Frontend/Home.html',{'error':False})
