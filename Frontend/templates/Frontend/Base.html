@@ -8,7 +8,6 @@
         </title>
 
         {% load static %}
-        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
         <!-- Bootstrap core CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -57,31 +56,31 @@
                     <div class="sidebar-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/">
+                                <a class="nav-link {% if request.path == "/" %}active{% endif %}" href="/">
                                     <span data-feather="home"></span>
                                     Dashboard <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/item">
+                                <a class="nav-link {% if request.path == "/item" %}active{% endif %}" href="/item">
                                     <span data-feather="shopping-cart"></span>
                                     Items
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/vendor">
+                                <a class="nav-link {% if request.path == "/vendor" %}active{% endif %}" href="/vendor">
                                     <span data-feather="users"></span>
                                     Vendors
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/stock">
+                                <a class="nav-link {% if request.path == "/stock" %}active{% endif %}" href="/stock">
                                     <span data-feather="bar-chart-2"></span>
                                     Stocks
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/sale">
+                                <a class="nav-link {% if request.path == "/sale" %}active{% endif %}" href="/sale">
                                     <span data-feather="layers"></span>
                                     Sales
                                 </a>
@@ -103,7 +102,6 @@
         <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
         <script src="static/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
         <script src="static/js/dashboard.js"></script>
     </body>
 </html>

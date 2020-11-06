@@ -11,6 +11,9 @@ def home(request):
 def item(request):
     return render(request,'Frontend/Item.html')
 
+def item_add(request):
+    return render(request,'Frontend/ItemAdd.html')
+
 
 @login_required(login_url='/account/login/')
 def vendor(request):
