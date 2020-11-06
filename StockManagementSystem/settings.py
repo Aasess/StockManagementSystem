@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'Account',
-    'crispy_forms'
+    'crispy_forms',
+    'Frontend'
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"

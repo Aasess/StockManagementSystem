@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/',include(router.urls)),
     path('api/gettoken/',TokenObtainPairView.as_view(),name="gettoken"), #path for getting api token
     path('api/refreshtoken/',TokenRefreshView.as_view(),name="refreshtoken"),
-    path('account/',include('Account.urls'))
+    path('account/',include('Account.urls')),
+    path('',include('Frontend.urls'))
 ]
