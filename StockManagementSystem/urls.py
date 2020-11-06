@@ -18,6 +18,8 @@ from django.urls import path,include
 from rest_framework import routers
 from API import views
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register("vendor",views.VendorViewSet,basename="vendor")
@@ -32,4 +34,4 @@ urlpatterns = [
     path('api/refreshtoken/',TokenRefreshView.as_view(),name="refreshtoken"),
     path('account/',include('Account.urls')),
     path('',include('Frontend.urls'))
-]
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
