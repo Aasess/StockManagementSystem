@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup page</title>
+    <title>Signup page-Om Bheri Dental Hospital</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="border mt-5 rounded shadow w-50 mx-auto">
-            <div class="bg-dark text-white p-3 text-center rounded-top">
-                <h4>Register with us</h4>
+        <div class="border mt-5 rounded shadow bg-white w-50 mx-auto">
+            <div class="bg-dark text-white pb-2 pt-3 text-center rounded-top">
+                <h4>User Register</h4>
             </div>
             
             <div class="m-3 ">
@@ -34,9 +39,12 @@
                         <small  class="text-secondary">Enter the registered number.</small>
                     </div>
                     {{ form|crispy }}
-                    <button type="submit" class="btn btn-primary btn-large">SignUp</button>
+                    <div class="row justify-content-center align-items-center mb-3">
+                        <button type="submit" class="btn btn-outline-info btn-lg mt-2">SignUp</button>
+                    </div>
                 </form>
             </div>
+            <p class="text-center">Already have a account? <a href="{% url 'login' %}">Log In</a></p>
         </div>
         
     </div>
