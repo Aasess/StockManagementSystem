@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import Employee
 from django.contrib.auth.hashers import make_password
 
@@ -32,6 +32,3 @@ def signup(request):
         form = UserCreationForm()
     return render(request,'Account/Signup.html',{'form':form})
 
-
-def login(request):
-    return render(request,'Account/Login.html')
