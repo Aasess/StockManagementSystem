@@ -2,6 +2,7 @@ from django.db import models
 #unique and randon sku generator
 from .utils import unique_sku_generator 
 from django.db.models.signals import pre_save
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -25,17 +26,13 @@ class Category(models.Model):
 
 
 class Item(models.Model):
-    stock_choices = (
-        (0,'Out of Stock'),
-        (1,'In Stock')
-    )
-
     sku = models.CharField(max_length=15, blank= True)
     item_name = models.CharField(max_length=200)
     category = models.ForeignKey(
         Category, #one category has many items
         on_delete = models.SET_NULL, #if category is deleted, set the category_id to null
         null = True,
+        blank = True,
         related_name = "items_cat"
     )
     price = models.FloatField(default=0)
@@ -43,13 +40,14 @@ class Item(models.Model):
         Vendor, #one vendor has many items
         on_delete = models.SET_NULL,
         null = True,
+        blank = True,
         related_name = "items_vendor"
     )
     remaining_quantity = models.IntegerField(default=0)
+    is_stock = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length = 200)
-    is_stock = models.IntegerField(choices = stock_choices)
 
     def __str__(self):
         return self.item_name

@@ -20,6 +20,7 @@ from API import views
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
 router = routers.DefaultRouter()
 router.register("vendor",views.VendorViewSet,basename="vendor")
@@ -33,5 +34,6 @@ urlpatterns = [
     path('api/gettoken/',TokenObtainPairView.as_view(),name="gettoken"), #path for getting api token
     path('api/refreshtoken/',TokenRefreshView.as_view(),name="refreshtoken"),
     path('account/',include('Account.urls')),
-    path('',include('Frontend.urls'))
+    path('',include('Frontend.urls')),
+    url('^searchableselect/', include('searchableselect.urls'))
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

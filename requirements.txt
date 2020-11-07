@@ -7,3 +7,4 @@ djangorestframework-simplejwt==4.5.0
 PyJWT==1.7.1
 pytz==2020.4
 sqlparse==0.4.1
+django-searchable-select
