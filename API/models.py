@@ -35,7 +35,6 @@ class Item(models.Model):
     category = models.ForeignKey(
         Category, #one category has many items
         on_delete = models.SET_NULL, #if category is deleted, set the category_id to null
-        blank = True, #if no any category is selected
         null = True,
         related_name = "items_cat"
     )
@@ -43,7 +42,6 @@ class Item(models.Model):
     vendor = models.ForeignKey(
         Vendor, #one vendor has many items
         on_delete = models.SET_NULL,
-        blank = True, #if no any vendor is selected
         null = True,
         related_name = "items_vendor"
     )
