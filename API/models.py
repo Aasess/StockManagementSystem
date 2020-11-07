@@ -56,6 +56,9 @@ class Item(models.Model):
         if(self.remaining_quantity > 0 ):
             return True
 
+    def datepretty(self):
+        return self.created_at.strftime('%b %e,%Y')
+
 class Stock(models.Model):
     item = models.ForeignKey(
         Item, #one item has many stocks left
