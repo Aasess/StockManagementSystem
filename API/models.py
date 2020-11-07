@@ -63,10 +63,10 @@ class Stock(models.Model):
         null = True,
         related_name = "stocks"
         )
+    recieved_quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length = 200)
-    recieved_quantity = models.IntegerField(default=0)
 
    
 
@@ -77,11 +77,10 @@ class Sale(models.Model):
         null = True,
         related_name = "sales"
         )
+    sold_quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length = 200)
-    sold_quantity = models.IntegerField(default=0)
-
 
 
 
@@ -90,4 +89,3 @@ def pre_save_create_new_sku(sender, instance, *args, **kwargs):
         instance.sku= unique_sku_generator(instance)
 
 pre_save.connect(pre_save_create_new_sku, sender=Item)
-
