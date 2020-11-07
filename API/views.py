@@ -84,8 +84,8 @@ class VendorViewSet(viewsets.ViewSet):
 
 
 class ItemViewSet(viewsets.ViewSet): 
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
     def list(self,request):
         items = Item.objects.all()
         #serialize them to json

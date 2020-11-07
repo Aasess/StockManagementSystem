@@ -6,13 +6,13 @@ from .models import Vendor,Item,Stock,Sale
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ['name','address','phone','updated_by']
+        fields = '__all__'
 
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['item_name','category','price','vendor','remaining_quantity','updated_by','is_stock']
+        fields = '__all__'
     
     #in order to show the vendor detail
     def to_representation(self,instance):
@@ -23,7 +23,7 @@ class ItemSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
-        fields = ['item','created_by','updated_by','recieved_quantity']
+        fields = '__all__'
 
     #in order to show the item detail
     def to_representation(self,instance):
@@ -35,7 +35,7 @@ class StockSerializer(serializers.ModelSerializer):
 class SaleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sale
-        fields = ['item','created_by','updated_by','sold_quantity']
+        fields = '__all__'
 
     #in order to show the item detail
     def to_representation(self,instance):
