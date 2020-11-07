@@ -1,21 +1,48 @@
 const itemoutput = document.querySelector("tbody");
 
-
-
 //funtions
 
+function getToken(){
+    return new Promise((resolve)=> {
+        fetch('http://127.0.0.1:8000/api/gettoken/',{
+        method: 'POST',
+        headers: {
+            'Accept':'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'username': 'ashish',
+            'password':'1234'
+        })
+    })
+    .then((res) => res.json())
+    .then((data)=> {
+        resolve(data['access'])
+    })
+    })
+}
 
-function getItem(){
-    fetch('http://127.0.0.1:8000/api/item/')
+function getItem(token){
+    let bearer = 'Bearer ' + token;
+    fetch('http://127.0.0.1:8000/api/item/',{
+        method: 'GET',
+        withCredentials: true,
+        credentials: 'include',
+        headers: {
+            'Authorization': bearer,
+            //'Content-Type': 'application/json'
+        }
+
+    })
     .then((response)=> response.json())
     .then((data) => {
-        //itemoutput.innerText = "";
+        itemoutput.innerText = "";
         data['data'].forEach((object)=>{
             itemoutput.innerHTML += `
             <tr>
             <td>${ object.sku }</td>
             <td>${ object.item_name }</td>
-            <td>${ object.category }</td>
+            <td>${ object.category_detail.category_name }</td>
             <td>${ object.price }</td>
             <td>${ object.vendor_detail.name }</td>
             <td class="pl-5">${ object.remaining_quantity }</td>
@@ -38,7 +65,7 @@ function getItem(){
 }
 
 
-getItem();
 
+getToken().then(getItem);
 
 //events

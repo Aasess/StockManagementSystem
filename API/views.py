@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Vendor,Item,Stock,Sale
-from .serializers import VendorSerializer,ItemSerializer,StockSerializer,SaleSerializer
+from .models import Vendor,Item,Stock,Sale,Category
+from .serializers import VendorSerializer,ItemSerializer,StockSerializer,SaleSerializer,CategorySerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -81,11 +81,24 @@ class VendorViewSet(viewsets.ViewSet):
 # vendor_update = VendorViewSet.as_view({"put":"update"})
 # vendor_delete = VendorViewSet.as_view({"delete":"delete"})
 
-
+class CategoryViewSet(viewsets.ViewSet):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def list(self,request):
+        categories = Category.objects.all()
+        #serialize them to json
+        serializer = CategorySerializer(categories,many = True, context = {"request":request})
+        #return json response
+        response_dict = {
+            "error": False,
+            "message": "All item list data",
+            "data": serializer.data
+        }
+        return Response(response_dict)
 
 class ItemViewSet(viewsets.ViewSet): 
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         items = Item.objects.all()
         #serialize them to json

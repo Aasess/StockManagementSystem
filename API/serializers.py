@@ -1,11 +1,16 @@
 from rest_framework import serializers
-from .models import Vendor,Item,Stock,Sale
+from .models import Vendor,Item,Stock,Sale,Category
 
 
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
+        fields = '__all__'
+
+class  CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
         fields = '__all__'
 
 
@@ -18,6 +23,7 @@ class ItemSerializer(serializers.ModelSerializer):
     def to_representation(self,instance):
         response = super().to_representation(instance)
         response['vendor_detail'] = VendorSerializer(instance.vendor).data
+        response['category_detail'] = CategorySerializer(instance.category).data
         return response
 
 class StockSerializer(serializers.ModelSerializer):
