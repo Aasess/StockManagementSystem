@@ -16,23 +16,23 @@
         ul {
             list-style-type: none;
             padding: 0;
-        margin: 0;
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <div class="container pt-5">
         <div class="border mt-5 rounded shadow w-50 bg-white mx-auto ">
-            <div class="bg-dark text-white pb-2 pt-3 text-center rounded-top">
-                <h4>User Login</h4>
+            <div class="bg-dark rounded-top shadow text-center p-3">
+                <img src="/media/images/logo.jpg" alt="" class="rounded img-fluid">
             </div>
-            <div class="m-3 ">
+            <div class="m-3">
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     
                     {{ form|crispy }}
                     <div class="row justify-content-center align-items-center mb-3">
-                        <button type="submit" class="btn btn-outline-info btn-lg mt-2">Log In</button>
+                        <button type="submit" class="btn btn-outline-info btn-lg mt-2 mb-2">Log In</button>
                     </div>
                 </form>
             </div>
