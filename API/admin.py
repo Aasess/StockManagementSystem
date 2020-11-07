@@ -7,7 +7,9 @@ admin.site.register(Stock)
 admin.site.register(Sale)
 
 class item_search(admin.ModelAdmin):
-    search_fields = ['item_name','price']
+    search_fields = ['sku', 'item_name', 'category', 'price', 'vendor', 'remaining_quantity', 'is_stock', 'created_user']
+    # fields = ('sku', 'item_name', 'price')
+    list_display = ('sku', 'item_name', 'price')
 
 admin.site.register(Item, item_search)
 
