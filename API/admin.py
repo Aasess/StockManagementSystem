@@ -11,7 +11,9 @@ class item_admin(admin.ModelAdmin):
 
     # ADDING CURRENT USER TO created_by column when adding item
     def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
+        # if(getattr(obj, 'created_by') is None):
+        if not obj.created_by:
+            obj.created_by = request.user
         obj.save()
 admin.site.register(Item, item_admin)
 
@@ -22,7 +24,8 @@ class vendor_admin(admin.ModelAdmin):
 
     # ADDING CURRENT USER TO created_by column when adding item
     def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
+        if not obj.created_by:
+            obj.created_by = request.user
         obj.save()
 admin.site.register(Vendor, vendor_admin)
 
@@ -34,7 +37,8 @@ class stock_admin(admin.ModelAdmin):
 
     # ADDING CURRENT USER TO created_by column when adding item
     def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
+        if not obj.created_by:
+            obj.created_by = request.user
         obj.save()
 admin.site.register(Stock, stock_admin)
 
@@ -45,7 +49,8 @@ class sale_admin(admin.ModelAdmin):
 
     # ADDING CURRENT USER TO created_by column when adding item
     def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
+        if not obj.created_by:
+            obj.created_by = request.user
         obj.save()
 admin.site.register(Sale, sale_admin)
 # admin.site.register(Sale)
