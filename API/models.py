@@ -1,9 +1,10 @@
 from django.db import models
 #unique and randon sku generator
 from .utils import unique_sku_generator 
-from django.db.models.signals import pre_save,post_save,pre_delete
+from django.db.models.signals import pre_save,post_save,post_delete
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.db import DatabaseError
 
 # Create your models here.
 
@@ -85,78 +86,43 @@ class Sale(models.Model):
     created_by = models.CharField(max_length = 200)
 
 
-#send pre signal to generate unique sku value before saving item
-def pre_save_create_new_sku(sender, instance, *args, **kwargs):
-    if not instance.sku:
-        instance.sku= unique_sku_generator(instance)
 
-
-
-#send post signal to edit remaining item quantity after stock is added
-def post_save_item_stock(sender,instance,created,*args, **kwargs):
+def stock_calculate_signal(sender,instance,*args, **kwargs):
     item_name = instance.item
     item_id = instance.item.id
-    recieved_quantity = instance.recieved_quantity
     items = Item.objects.filter(Q(id = item_id) & Q(item_name = item_name))
+    sold_items_sum =  0
+    recieved_items_sum = 0
     for item in items:
-        item.remaining_quantity = item.remaining_quantity + recieved_quantity
+        sold_items = item.sales.all()
+        recieved_items = item.stocks.all()
+
+    for sold_item in sold_items:
+        sold_items_sum = sold_items_sum + sold_item.sold_quantity
+
+    for recieved_item in recieved_items:
+        recieved_items_sum = recieved_items_sum + recieved_item.recieved_quantity
+    
+    item = Item.objects.get(pk = item_id)
+    if(recieved_items_sum > sold_items_sum):
+        item.remaining_quantity = recieved_items_sum - sold_items_sum
         item.is_stock = True
         item.save()
-
-
-
-#send post signal to edit remaining item quantity after sale is added or item is sold
-def post_save_item_sale(sender,instance,created,*args, **kwargs):
-    item_name = instance.item
-    item_id = instance.item.id
-    sold_quantity = instance.sold_quantity
-    items = Item.objects.filter(Q(id = item_id) & Q(item_name = item_name))
-    for item in items:
-        if item.remaining_quantity >= sold_quantity:
-            item.remaining_quantity = item.remaining_quantity - sold_quantity
-            if item.remaining_quantity == 0:
-                item.is_stock = False
-            else:
-                item.is_stock = True
-            item.save()
-        else:#delete that instance
-            print("error remaining_quantity is less than sold quantity")
-            instance.delete()
-
-
-
-pre_save.connect(pre_save_create_new_sku, sender=Item)
-post_save.connect(post_save_item_stock,sender=Stock)
-post_save.connect(post_save_item_sale,sender=Sale)
-
-
-
-#when stock is deleted, reduce it in items
-def pre_delete_item_stock(sender,instance,*args, **kwargs):
-    item_name = instance.item
-    item_id = instance.item.id
-    deleted_quantity = instance.recieved_quantity
-    items = Item.objects.filter(Q(id = item_id) & Q(item_name = item_name))
-    for item in items:
-        item.remaining_quantity = item.remaining_quantity - deleted_quantity
-        if item.remaining_quantity == 0:
-            item.is_stock = False
-        else:
-            item.is_stock = True
+    
+    elif(recieved_items_sum == sold_items_sum):
+        item.remaining_quantity = 0
+        item.is_stock = False
         item.save()
+    else:
+        raise DatabaseError("sold quantity cannot be greater than stock")
 
 
 
-#when sale is deleted, reduce it in items
-def pre_delete_item_sale(sender,instance,*args, **kwargs):
-    item_name = instance.item
-    item_id = instance.item.id
-    deleted_quantity = instance.sold_quantity
-    items = Item.objects.filter(Q(id = item_id) & Q(item_name = item_name))
-    for item in items:
-        item.remaining_quantity = item.remaining_quantity + deleted_quantity
-        item.save()
+#signals
+post_save.connect(stock_calculate_signal,sender = Stock)
+post_save.connect(stock_calculate_signal,sender = Sale)
+
+post_delete.connect(stock_calculate_signal,sender = Stock)
+post_delete.connect(stock_calculate_signal,sender = Sale)
 
 
-pre_delete.connect(pre_delete_item_stock,sender = Stock)
-pre_delete.connect(pre_delete_item_sale,sender = Sale)
