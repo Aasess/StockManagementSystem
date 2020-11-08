@@ -1,12 +1,23 @@
 {% extends 'Frontend/Base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
 Add new item-Om Bheri Dental Hospital
 {% endblock %}
 
 {% block content %}
 
-    <!-- <h2>Items</h2> -->
-    <button type="button" class="btn btn-primary btn-lg" style="margin-top:10px; margin-bottom:10px">Add New Item</button>
+<div class="row justify-content-center align-items-center">
+    <div class="border rounded shadow col-7 mt-5 p-3">
+        <h4>Add New Item</h4>
+        <hr>
+        <form action="">
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-info mt-2 mb-2">Submit</button>
+        </form>
+    </div>
+    
+
+</div>
 
 
 {% endblock %}

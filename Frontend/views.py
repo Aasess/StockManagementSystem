@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from .forms import ItemAddForm
 
 # Create your views here.
 @login_required(login_url='/account/login/')
@@ -11,8 +12,11 @@ def home(request):
 def item(request):
     return render(request,'Frontend/Item.html')
 
+
+@login_required(login_url='/account/login/')
 def item_add(request):
-    return render(request,'Frontend/ItemAdd.html')
+    form = ItemAddForm()
+    return render(request,'Frontend/ItemAdd.html',{'form':form})
 
 
 @login_required(login_url='/account/login/')
