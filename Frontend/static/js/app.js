@@ -23,7 +23,7 @@ function getToken(){
 }
 
 function getItem(token){
-    let bearer = 'Bearer ' + token;
+    var bearer = 'Bearer ' + token;
     fetch('http://127.0.0.1:8000/api/item/',{
         method: 'GET',
         withCredentials: true,

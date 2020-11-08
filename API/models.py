@@ -4,6 +4,7 @@ from .utils import unique_sku_generator
 from django.db.models.signals import pre_save
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Vendor(models.Model):
@@ -56,8 +57,6 @@ class Item(models.Model):
         if(self.remaining_quantity > 0 ):
             return True
 
-    def datepretty(self):
-        return self.created_at.strftime('%b %e,%Y')
 
 class Stock(models.Model):
     item = models.ForeignKey(
@@ -92,3 +91,5 @@ def pre_save_create_new_sku(sender, instance, *args, **kwargs):
         instance.sku= unique_sku_generator(instance)
 
 pre_save.connect(pre_save_create_new_sku, sender=Item)
+
+

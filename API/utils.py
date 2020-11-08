@@ -17,3 +17,4 @@ def unique_sku_generator(instance):
         return unique_sku_generator(instance)
     
     return new_random_sku
+
