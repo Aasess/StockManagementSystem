@@ -36,7 +36,7 @@ class Item(models.Model):
         blank = True,
         related_name = "items_cat"
     )
-    price = models.FloatField(default=0)
+    price = models.PositiveIntegerField(default=0)
     vendor = models.ForeignKey(
         Vendor, #one vendor has many items
         on_delete = models.SET_NULL,
@@ -44,7 +44,7 @@ class Item(models.Model):
         blank = True,
         related_name = "items_vendor"
     )
-    remaining_quantity = models.IntegerField(default=0)
+    remaining_quantity = models.PositiveIntegerField(default=0)
     is_stock = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -65,7 +65,7 @@ class Stock(models.Model):
         null = True,
         related_name = "stocks"
         )
-    recieved_quantity = models.IntegerField(default=0)
+    recieved_quantity = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length = 200)
@@ -79,7 +79,7 @@ class Sale(models.Model):
         null = True,
         related_name = "sales"
         )
-    sold_quantity = models.IntegerField(default=0)
+    sold_quantity = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length = 200)
