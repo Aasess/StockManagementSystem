@@ -1,7 +1,7 @@
 from django.db import models
 #unique and randon sku generator
 from .utils import unique_sku_generator 
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save,post_save
 from django.contrib.auth.models import User
 
 
@@ -85,11 +85,45 @@ class Sale(models.Model):
     created_by = models.CharField(max_length = 200)
 
 
-
+#send pre signal to generate unique sku value before saving item
 def pre_save_create_new_sku(sender, instance, *args, **kwargs):
     if not instance.sku:
         instance.sku= unique_sku_generator(instance)
 
-pre_save.connect(pre_save_create_new_sku, sender=Item)
 
+
+#send post signal to edit remaining item quantity after stock is added
+def post_save_item_stock(sender,instance,*args, **kwargs):
+    item_name = instance.item
+    recieved_quantity = instance.recieved_quantity
+    items = Item.objects.filter(item_name = item_name)
+    for item in items:
+        item.remaining_quantity = item.remaining_quantity + recieved_quantity
+        item.is_stock = True
+        item.save()
+
+
+
+#send post signal to edit remaining item quantity after sale is added or item is sold
+def post_save_item_sale(sender,instance,*args, **kwargs):
+    item_name = instance.item
+    sold_quantity = instance.sold_quantity
+    items = Item.objects.filter(item_name = item_name)
+    for item in items:
+        if item.remaining_quantity >= sold_quantity:
+            item.remaining_quantity = item.remaining_quantity - sold_quantity
+            if item.remaining_quantity == 0:
+                item.is_stock = False
+            else:
+                item.is_stock = True
+            item.save()
+        else:#delete that instance
+            print("error remaining_quantity is less than sold quantity")
+            instance.delete()
+
+
+
+pre_save.connect(pre_save_create_new_sku, sender=Item)
+post_save.connect(post_save_item_stock,sender=Stock)
+post_save.connect(post_save_item_sale,sender=Sale)
 
