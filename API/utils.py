@@ -9,7 +9,6 @@ def random_sku_generator(size=10,chars=string.ascii_lowercase + string.digits):
 
 def unique_sku_generator(instance):
     new_random_sku = random_sku_generator()
-    print(new_random_sku)
     #instance of item class
     Kclass= instance.__class__
     #check if that sku already exists

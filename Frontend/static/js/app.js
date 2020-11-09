@@ -38,7 +38,7 @@ function getItem(token){
     })
     .then((response)=> response.json())
     .then((data) => {
-        itemoutput.innerText = "";
+        //itemoutput.innerText = "";
         data['data'].forEach((object)=>{
             itemoutput.innerHTML += `
             <tr>
