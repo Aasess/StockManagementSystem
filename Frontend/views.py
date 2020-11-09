@@ -15,7 +15,11 @@ def item(request):
 
 @login_required(login_url='/account/login/')
 def item_add(request):
-    form = ItemAddForm()
+    if request.method == "POST":
+        form = ItemAddForm(request.POST)
+        
+    else:
+        form = ItemAddForm()
     return render(request,'Frontend/ItemAdd.html',{'form':form})
 
 

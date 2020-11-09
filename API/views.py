@@ -100,7 +100,7 @@ class ItemViewSet(viewsets.ViewSet):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     def list(self,request):
-        items = Item.objects.all()
+        items = Item.objects.order_by('-created_at')
         #serialize them to json
         serializer = ItemSerializer(items,many = True, context = {"request":request})
         #return json response
