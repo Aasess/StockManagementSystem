@@ -1,4 +1,4 @@
-
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -8,16 +8,8 @@
             {% block title %}
             {% endblock %}
         </title>
-
-        {% load static %}
-
         <!-- Bootstrap core CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 
         <style>
@@ -38,7 +30,7 @@
         </style>
 
         <!-- Custom styles for this template -->
-        <link href="static/css/dashboard.css" rel="stylesheet">
+        <link href="/static/css/dashboard.css" rel="stylesheet">
     </head>
 
     <body>
@@ -112,9 +104,10 @@
             </div>
         </div>
         <script src="static/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-        <script src="static/js/dashboard.js"></script>
+        <script src="/static/js/dashboard.js"></script>
         {% block addscriptfile %}
         
         {% endblock %}

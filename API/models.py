@@ -86,6 +86,11 @@ class Sale(models.Model):
     created_by = models.CharField(max_length = 200)
 
 
+#send pre signal to generate unique sku value before saving item	
+def pre_save_create_new_sku(sender, instance, *args, **kwargs):	
+    if not instance.sku:	
+        instance.sku= unique_sku_generator(instance)
+
 
 def stock_calculate_signal(sender,instance,*args, **kwargs):
     item_name = instance.item
@@ -125,4 +130,4 @@ post_save.connect(stock_calculate_signal,sender = Sale)
 post_delete.connect(stock_calculate_signal,sender = Stock)
 post_delete.connect(stock_calculate_signal,sender = Sale)
 
-
+pre_save.connect(pre_save_create_new_sku, sender=Item)
