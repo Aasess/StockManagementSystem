@@ -4,15 +4,16 @@ const itemoutput = document.querySelector("tbody");
 
 function getToken(){
     return new Promise((resolve)=> {
-        fetch('http://127.0.0.1:8000/api/gettoken/',{
+        // fetch('http://127.0.0.1:8000/api/gettoken/',{
+        fetch('http://localhost:8000/api/gettoken/',{
         method: 'POST',
         headers: {
             'Accept':'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'username': 'ashish',
-            'password':'1234'
+            'username': 'admin',
+            'password':'test10'
         })
     })
     .then((res) => res.json())
@@ -24,7 +25,8 @@ function getToken(){
 
 function getItem(token){
     var bearer = 'Bearer ' + token;
-    fetch('http://127.0.0.1:8000/api/item/',{
+    // fetch('http://127.0.0.1:8000/api/item/',{
+    fetch('http://localhost:8000/api/item/',{
         method: 'GET',
         withCredentials: true,
         credentials: 'include',
@@ -40,14 +42,14 @@ function getItem(token){
         data['data'].forEach((object)=>{
             itemoutput.innerHTML += `
             <tr>
-            <td>${ object.sku }</td>
-            <td>${ object.item_name }</td>
-            <td>${ object.category_detail.category_name }</td>
-            <td>${ object.price }</td>
-            <td>${ object.vendor_detail.name }</td>
-            <td class="pl-5">${ object.remaining_quantity }</td>
-            <td>${ moment(new Date(object.created_at)).format("MMM.DD,YYYY, HH:mm A") }</td>
-            <td id="is_stock">${ object.is_stock }</td>
+                <td>${ object.sku }</td>
+                <td>${ object.item_name }</td>
+                <td>${ object.category_detail.category_name }</td>
+                <td>${ object.price }</td>
+                <td>${ object.vendor_detail.name }</td>
+                <td class="pl-5">${ object.remaining_quantity }</td>
+                <td>${ moment(new Date(object.created_at)).format("MMM.DD,YYYY, HH:mm A") }</td>
+                <td id="is_stock">${ object.is_stock }</td>
             </tr>
         `;
         })
@@ -61,9 +63,11 @@ function getItem(token){
             }
         });
     })
-    
-}
+    .then(function() {
+        $('#myTable').DataTable();
+    })
 
+}
 
 
 getToken().then(getItem);
