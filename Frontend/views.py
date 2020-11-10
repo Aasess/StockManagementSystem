@@ -6,14 +6,8 @@ from django.contrib.auth.models import User
 from .token_generator import access_token_generate
 
 
-# Create your views here.
 @login_required(login_url='/account/login/')
 def home(request):
-    return render(request,'Frontend/Home.html')
-
-
-@login_required(login_url='/account/login/')
-def item(request):
     req = requests.get(url = 'http://127.0.0.1:8000/api/item/',headers = access_token_generate())
     result = req.json()
     return render(request,'Frontend/Item.html',{'items':result['data']})
@@ -35,6 +29,7 @@ def item_add(request):
                 'price':int(price),
                 'category':categoryid,
                 'vendor':vendorid,
+                'created_by':str(request.user),
             }
 
             requests.post(url = 'http://127.0.0.1:8000/api/item/',headers = access_token_generate(),data = data)
@@ -68,7 +63,8 @@ def vendor_add(request):
             data = {
                 'name':name,
                 'address':address,
-                'phone':phone
+                'phone':phone,
+                'created_by':str(request.user),
             }
 
             requests.post(url = 'http://127.0.0.1:8000/api/vendor/',headers = access_token_generate(),data = data)
@@ -100,7 +96,8 @@ def sale_add(request):
             
             data = {
                 'item':itemid,
-                'sold_quantity':int(sold_quantity)
+                'sold_quantity':int(sold_quantity),
+                'created_by':str(request.user),
             }
             requests.post(url = 'http://127.0.0.1:8000/api/sale/',headers = access_token_generate(),data = data)
             form = SaleAddForm()
@@ -132,7 +129,8 @@ def stock_add(request):
             
             data = {
                 'item':itemid,
-                'recieved_quantity':int(received_quantity)
+                'recieved_quantity':int(received_quantity),
+                'created_by':str(request.user),
             }
             requests.post(url = 'http://127.0.0.1:8000/api/stock/',headers = access_token_generate(),data = data)
             form = StockAddForm()
