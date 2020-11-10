@@ -106,7 +106,7 @@ class SaleAddForm(forms.Form):
         item = Item.objects.get(pk = itemid)
         
         if(sold_quantity > item.remaining_quantity):
-            raise ValidationError(f"Error!! Sale quantity cannot be greater than remaining stock quantity for {item.item_name}.")
+            self.add_error('sold_quantity',f"Error!! Sale quantity cannot be greater than remaining stock quantity for {item.item_name}.")
 
 
 

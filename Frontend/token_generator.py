@@ -7,8 +7,6 @@ def access_token_generate():
     jsonpath = os.path.join(BASE_DIR,'data.json')
     with open(jsonpath) as f:
         data = json.load(f)
-        print(data)
-
 
     session = requests.Session()
     session.trust_env = False

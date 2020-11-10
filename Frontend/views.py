@@ -101,7 +101,7 @@ def sale_add(request):
             }
             requests.post(url = 'http://127.0.0.1:8000/api/sale/',headers = access_token_generate(),data = data)
             form = SaleAddForm()
-            return render(request,'Frontend/SaleAdd.html',{'form':form,'success':f'The sold qunatity - {sold_quantity} is added successfully.'})
+            return render(request,'Frontend/SaleAdd.html',{'form':form,'success':f'The sold quantity - {sold_quantity} is added successfully.'})
         
     else:
         form = SaleAddForm()
