@@ -96,11 +96,28 @@ class CategoryViewSet(viewsets.ViewSet):
         }
         return Response(response_dict)
 
+    def create(self,request):
+        try:
+            serializer = CategorySerializer(data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                response_dict = {
+                    "error": False,
+                    "message": "new category added sucessfully!!!"
+                }
+        except:
+            response_dict = {
+                "error": True,
+                "message": "Error!! New category cannot be added."
+            }
+        
+        return Response(response_dict)
+
 class ItemViewSet(viewsets.ViewSet): 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     def list(self,request):
-        items = Item.objects.order_by('-created_at')
+        items = Item.objects.all()
         #serialize them to json
         serializer = ItemSerializer(items,many = True, context = {"request":request})
         #return json response
@@ -133,7 +150,6 @@ class ItemViewSet(viewsets.ViewSet):
     def create(self,request):
         try:
             serializer = ItemSerializer(data = request.data)
-            print(serializer)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             response_dict = {
@@ -220,7 +236,6 @@ class StockViewSet(viewsets.ViewSet):
     def create(self,request):
         try:
             serializer = StockSerializer(data = request.data)
-            print(serializer)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             response_dict = {
@@ -307,7 +322,6 @@ class SaleViewSet(viewsets.ViewSet):
     def create(self,request):
         try:
             serializer = SaleSerializer(data = request.data)
-            print(serializer)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             response_dict = {

@@ -26,6 +26,17 @@ body {
   .sidebar {
     top: 5rem;
   }
+  body {
+    font-size: small;
+}
+h2 {
+    font-size: 25px;
+}
+
+.itemaddbtn{
+  font-size: small;
+}
+
 }
 
 .sidebar-sticky {
@@ -146,3 +157,4 @@ body {
     transform: translate3d(0, -12px, 0);
   }
 }
+

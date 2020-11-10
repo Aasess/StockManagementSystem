@@ -1,0 +1,43 @@
+{% extends 'Frontend/Base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Add new category-Om Bheri Dental Hospital
+{% endblock %}
+{% block content %}
+<style>
+    ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .errorlist > li {
+            visibility: hidden;
+        }
+
+        .nonfield > li {
+            visibility: visible;
+            padding-bottom: 18px;
+        }
+</style>
+
+<div class="row justify-content-center align-items-center box">
+    <div class="border rounded shadow col-lg-7 col-xl-7 col-9 mt-5 p-3">
+        <h4>Add New Category</h4>
+        <hr>
+        <form action="{% url 'category_add' %}" method="POST">
+            {% csrf_token %}
+            {% if success %}
+                <div class="alert alert-success font-weight-bold text-center" role="success">{{ success }}</div>
+            {% endif %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-info mt-2 mb-2">Submit</button>
+        </form>
+        <small class="text-danger float-right font-weight-bold">* indicates field cannot be empty.</small>
+    </div>
+    
+
+</div>
+
+
+{% endblock %}
