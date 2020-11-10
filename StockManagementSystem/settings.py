@@ -75,7 +75,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
         'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-    ]
+    ],
+    'DATETIME_FORMAT':"%b.%d,%Y, %I:%M %p"
 }
 
 ROOT_URLCONF = 'StockManagementSystem.urls'
