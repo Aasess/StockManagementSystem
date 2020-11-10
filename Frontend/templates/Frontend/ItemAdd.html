@@ -44,12 +44,12 @@ Add new item-Om Bheri Dental Hospital
             </div>
             {{ form.price|as_crispy_field }}
             <div class="row">
-                <div class="col-11">
+                <div class="col-12">
                     {{ form.vendor|as_crispy_field }}
                 </div>
-                <div class="col-1 pt-4 mt-2 pl-0">
-                    <a href="{% url 'vendor_add' %}" title="Add new vendor" target="_blank"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
-                </div>
+                <!-- <div class="col-1 pt-4 mt-2 pl-0">
+                    <a href="{% url 'vendor_add' %}" title="Add new vendor"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a>
+                </div> -->
             </div>
             <button type="submit" class="btn btn-info mt-2 mb-2">Submit</button>
         </form>

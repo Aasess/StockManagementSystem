@@ -121,7 +121,7 @@ def stock_calculate_signal(sender,instance,*args, **kwargs):
         else:
             raise DatabaseError("sold quantity cannot be greater than stock")
 
-    except:
+    except AttributeError:
         pass        
 
 

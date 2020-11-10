@@ -12,8 +12,8 @@
 //             'Content-Type': 'application/json'
 //         },
 //         body: JSON.stringify({
-//             'username': 'ashish',
-//             'password':'1234'
+//             'username': 'yourname',
+//             'password':'yourpassword'
 //         })
 //     })
 //     .then((res) => res.json())
