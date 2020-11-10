@@ -19,10 +19,13 @@ Add new category-Om Bheri Dental Hospital
             visibility: visible;
             padding-bottom: 18px;
         }
+
 </style>
 
 <div class="row justify-content-center align-items-center box">
     <div class="border rounded shadow col-lg-7 col-xl-7 col-9 mt-5 p-3">
+        <a href="{% url 'item_add' %}" title="Go Back"><span data-feather="arrow-left-circle" class="mb-3"></span></a>
+        
         <h4>Add New Category</h4>
         <hr>
         <form action="{% url 'category_add' %}" method="POST">
@@ -32,7 +35,9 @@ Add new category-Om Bheri Dental Hospital
             {% endif %}
             {{ form|crispy }}
             <button type="submit" class="btn btn-info mt-2 mb-2">Submit</button>
+            
         </form>
+        
         <small class="text-danger float-right font-weight-bold">* indicates field cannot be empty.</small>
     </div>
     

@@ -30,7 +30,7 @@ router.register("stock",views.StockViewSet,basename="stock")
 router.register("sale",views.SaleViewSet,basename="sale")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('dental/', admin.site.urls),
     path('api/',include(router.urls)),
     path('api/gettoken/',TokenObtainPairView.as_view(),name="gettoken"), #path for getting api token
     path('api/refreshtoken/',TokenRefreshView.as_view(),name="refreshtoken"),
