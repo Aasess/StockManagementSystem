@@ -3,7 +3,7 @@ import string
 
 
 #function to generate random numbers.
-def random_sku_generator(size=6,chars=string.ascii_uppercase + string.digits):
+def random_sku_generator(size=6,chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 def unique_sku_generator(instance):
