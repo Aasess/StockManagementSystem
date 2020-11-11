@@ -7,5 +7,6 @@ from .models import Employee
 
 class employee_admin(admin.ModelAdmin):
     list_display =  ('first_name', 'last_name', 'phone', 'address')
+    fields =  ('first_name', 'last_name', 'phone', 'address')
 
 admin.site.register(Employee, employee_admin)
