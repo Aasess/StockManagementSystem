@@ -76,10 +76,6 @@ $('#myTable').DataTable({
     order: [0, 'desc'],
 });
 
-// dateall = document.querySelectorAll("#date")
-// dateall.forEach((date)=>{
-//     date.innerText = moment(new Date(date.innerText)).format("MMM.DD,YYYY, hh:MM A")
-// })
 
 
 const loader = document.querySelector('.loader');
@@ -96,3 +92,10 @@ function init() {
 }
 
 init();
+
+
+
+dateall = document.querySelectorAll("#date")
+dateall.forEach((date)=>{
+    date.innerText = moment(new Date(date.innerText)).format("YYYY-MM-DD, hh:MM A")
+})
