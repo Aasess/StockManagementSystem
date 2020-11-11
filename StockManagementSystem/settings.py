@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'Account',
     'crispy_forms',
     'Frontend',
-    'corsheaders'
+    'corsheaders',
+    'import_export'
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"

@@ -21,7 +21,7 @@ def signup(request):
                         #hash the password and save it to employee
                         emp.password = make_password(password = emp.password,salt=None,hasher='default')
                         emp.save()
-                        return redirect('login')
+                        return render(request,'Account/login.html',{'form':AuthenticationForm,'success':"User is successfully signed up. Login now to continue."})
                     else:
                         return render(request,'Account/Signup.html',{'form':form,'error_phone':"User is already registered with same phone number."})
             else:
