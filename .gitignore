@@ -4,3 +4,6 @@ __pycache__
 /static
 media
 data.json
+/passenger_wsgi.py
+/tmp
+/StockManagementSystem/settings.py
