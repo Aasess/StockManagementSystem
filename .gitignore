@@ -6,4 +6,4 @@ media
 data.json
 /passenger_wsgi.py
 /tmp
-/* /StockManagementSystem/settings.py */
+/StockManagementSystem/settings.py
