@@ -4,11 +4,11 @@ from .forms import ItemAddForm,VendorAddForm,StockAddForm,SaleAddForm,CategoryAd
 import requests
 from django.contrib.auth.models import User
 from .token_generator import access_token_generate
-
+from StockManagementSystem.settings import WEBSITE_URL
 
 @login_required(login_url='/account/login/')
 def home(request):
-    req = requests.get(url = 'http://127.0.0.1:8000/api/item/',headers = access_token_generate())
+    req = requests.get(url = f'{WEBSITE_URL}/api/item/',headers = access_token_generate())
     result = req.json()
     return render(request,'Frontend/Item.html',{'items':result['data']})
 
@@ -32,7 +32,7 @@ def item_add(request):
                 'created_by':str(request.user),
             }
 
-            requests.post(url = 'http://127.0.0.1:8000/api/item/',headers = access_token_generate(),data = data)
+            requests.post(url = f'{WEBSITE_URL}/api/item/',headers = access_token_generate(),data = data)
             form = ItemAddForm()
             return render(request,'Frontend/ItemAdd.html',{'form':form,'success':f'The item - {itemname} is added successfully.'})
         
@@ -44,7 +44,7 @@ def item_add(request):
 
 @login_required(login_url='/account/login/')
 def vendor(request):
-    req = requests.get(url = 'http://127.0.0.1:8000/api/vendor/',headers = access_token_generate())
+    req = requests.get(url = f'{WEBSITE_URL}/api/vendor/',headers = access_token_generate())
     result = req.json()
     return render(request,'Frontend/Vendor.html',{'vendors':result['data']})
 
@@ -67,7 +67,7 @@ def vendor_add(request):
                 'created_by':str(request.user),
             }
 
-            requests.post(url = 'http://127.0.0.1:8000/api/vendor/',headers = access_token_generate(),data = data)
+            requests.post(url = f'{WEBSITE_URL}/api/vendor/',headers = access_token_generate(),data = data)
             form = VendorAddForm()
             return render(request,'Frontend/VendorAdd.html',{'form':form,'success':f'The vendor - {name} is added successfully.'})
         
@@ -80,7 +80,7 @@ def vendor_add(request):
 
 @login_required(login_url='/account/login/')
 def sale(request):
-    req = requests.get(url = 'http://127.0.0.1:8000/api/sale/',headers = access_token_generate())
+    req = requests.get(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate())
     result = req.json()
     return render(request,'Frontend/Sale.html',{'sales':result['data']})
 
@@ -99,7 +99,7 @@ def sale_add(request):
                 'sold_quantity':int(sold_quantity),
                 'created_by':str(request.user),
             }
-            requests.post(url = 'http://127.0.0.1:8000/api/sale/',headers = access_token_generate(),data = data)
+            requests.post(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate(),data = data)
             form = SaleAddForm()
             return render(request,'Frontend/SaleAdd.html',{'form':form,'success':f'The sold quantity - {sold_quantity} is added successfully.'})
         
@@ -112,7 +112,7 @@ def sale_add(request):
 
 @login_required(login_url='/account/login/')
 def stock(request):
-    req = requests.get(url = 'http://127.0.0.1:8000/api/stock/',headers = access_token_generate())
+    req = requests.get(url = f'{WEBSITE_URL}/api/stock/',headers = access_token_generate())
     result = req.json()
     return render(request,'Frontend/Stock.html',{'stocks':result['data']})
 
@@ -132,7 +132,7 @@ def stock_add(request):
                 'recieved_quantity':int(received_quantity),
                 'created_by':str(request.user),
             }
-            requests.post(url = 'http://127.0.0.1:8000/api/stock/',headers = access_token_generate(),data = data)
+            requests.post(url = f'{WEBSITE_URL}/api/stock/',headers = access_token_generate(),data = data)
             form = StockAddForm()
             return render(request,'Frontend/StockAdd.html',{'form':form,'success':f'The received quantity - {received_quantity} is added successfully.'})
         
@@ -155,7 +155,7 @@ def category_add(request):
             data = {
                 'category_name':category_name
             }
-            requests.post(url = 'http://127.0.0.1:8000/api/category/',headers = access_token_generate(),data = data)
+            requests.post(url = f'{WEBSITE_URL}/api/category/',headers = access_token_generate(),data = data)
             form = CategoryAddForm()
             return render(request,'Frontend/CategoryAdd.html',{'form':form,'success':f'The category - {category_name} is added successfully.'})
         
