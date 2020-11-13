@@ -4,6 +4,8 @@ from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 admin.site.register(Category)
 
+admin.site.site_header = "OM BHERI DENTAL"
+
 
 class item_admin(ImportExportModelAdmin):
     search_fields = ['sku', 'item_name', 'category__category_name', 'price', 'vendor__name', 'is_stock', 'created_at', 'created_by']
