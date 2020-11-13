@@ -164,3 +164,10 @@ MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'home' #path after sucessfull login
 LOGOUT_REDIRECT_URL = 'login' #path after sucessfull login
+
+SESSION_COOKIE_SECURE           = True
+CSRF_COOKIE_SECURE              = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
+SECURE_HSTS_SECONDS             = 1000000
+SECURE_FRAME_DENY               = True
+SECURE_HSTS_PRELOAD = True
