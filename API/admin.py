@@ -4,7 +4,7 @@ from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 admin.site.register(Category)
 
-admin.site.site_header = "OM BHERI DENTAL"
+admin.site.site_header = "OM BHERI DENTAL CLINIC"
 
 
 class item_admin(ImportExportModelAdmin):

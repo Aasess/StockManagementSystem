@@ -42,7 +42,6 @@ Items-Om Bheri Dental Hospital
         <thead class="thead-dark">
             <tr>
                 <th>Created At</th>
-                <th class="pl-3">SKU</th>
                 <th>Item Name</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -56,7 +55,6 @@ Items-Om Bheri Dental Hospital
             {% for item in items %}
             <tr>
                 <td id="date" class="pl-3">{{ item.created_at }}</td>
-                <td class="pl-3">{{ item.sku }}</td>
                 <td class="pl-4">{{ item.item_name }}</td>
                 <td class="pl-4">{{ item.category_detail.category_name }}</td>
                 <td class="pl-4">{{ item.price }}</td>

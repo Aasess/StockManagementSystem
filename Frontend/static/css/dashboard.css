@@ -20,11 +20,22 @@ body {
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  
 }
 
+
 @media (max-width: 767.98px) {
+  .sidebar-sticky{
+                padding-left: 10px;
+                margin-top:-40px;
+                font-size: larger;
+            }
   .sidebar {
+    z-index:2000;
     top: 5rem;
+     height:20%;
+     box-shadow: 4px 3px 8px 1px #969696;
+  	-webkit-box-shadow: 4px 3px 8px 1px #969696;
   }
   body {
     font-size: small;
@@ -37,9 +48,10 @@ h2 {
   font-size: small;
 }
 
-}
 
-.sidebar-sticky {
+}
+@media(min-width:769){
+  .sidebar-sticky {
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
@@ -47,6 +59,8 @@ h2 {
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+}
+
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
