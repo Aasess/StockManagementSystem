@@ -14,13 +14,57 @@
         body{
             background-color: #f8f9fa;
         }
+
+        label{
+            display:none;
+        }
+
+        .form-group {
+
+            margin-top: 25px;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
 
-        @media (max-width: 700px) {
+        .btn-color {
+            background: #4776E6;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+       .icon{
+           position: absolute;
+           margin-left: 93%;
+           z-index:200;
+           text-align: center;
+       }
+
+       #id_username{
+           border:none;
+        border-bottom: 2px solid black;
+        border-radius: 0 0 0 1px;
+       }
+
+       #id_username:focus{
+  box-shadow: inset 0 0 0 0px;
+        border-bottom: 3px solid #4776E6;;
+       }
+
+       #id_password{
+           border:none;
+        border-bottom: 2px solid black;
+        border-radius: 0 0 0 1px;
+       }
+
+       #id_password:focus{
+  box-shadow: inset 0 0 0 0px;
+        border-bottom: 3px solid #4776E6;;
+       }
+        @media (max-width: 800px) {
             body {
                 font-size: small;
             }
@@ -28,8 +72,12 @@
             .box {
                 width: 75%;
             }
+            .icon {
+                margin-left: 90%;
+            }
         }
-        @media (min-width: 700px){
+
+        @media (min-width: 801px){
             .box {
                 width: 50%;
             }
@@ -53,8 +101,8 @@
                     {% csrf_token %}
                     
                     {{ form|crispy }}
-                    <div class="row justify-content-center align-items-center mb-3">
-                        <button type="submit" class="btn btn-outline-info mt-2 mb-2">Log In</button>
+                    <div class="row mb-3">
+                        <button type="submit" class="btn btn-color mt-1 mb-2 text-white btn-block ml-3 mr-3">Log In</button>
                     </div>
                 </form>
             </div>
@@ -66,10 +114,28 @@
 </html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 <script>
+   
    $("document").ready(function(){
        setTimeout(()=>{
         $(".success").fadeOut("slow","linear");
        },4000)
     });
+
+    const username = document.querySelector("#id_username");
+    const password = document.querySelector("#id_password");
+    username.placeholder="Username"
+    password.placeholder="Password"
+    
+    username.parentElement.classList.add("input-group");
+    
+    password.parentElement.classList.add("input-group");
+    
+    user_icon = username.parentElement
+    password_icon = password.parentElement
+
+    user_icon.insertAdjacentHTML('beforeend','<div class="input-group-append icon"><span data-feather="user" class="mt-2 text-secondary"></span></div>');
+    password_icon.insertAdjacentHTML('beforeend','<div class="input-group-append icon"><span data-feather="lock" class="mt-2 text-secondary"></span></div>');
+    feather.replace()
 </script>
