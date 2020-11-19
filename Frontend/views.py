@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from .forms import ItemAddForm,VendorAddForm,StockAddForm,SaleAddForm,CategoryAddForm
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 import requests
 from django.contrib.auth.models import User
 from .token_generator import access_token_generate
@@ -162,3 +164,30 @@ def category_add(request):
     else:
         form = CategoryAddForm()
     return render(request,'Frontend/CategoryAdd.html',{'form':form})
+
+
+@login_required(login_url="/acccount/login/")
+def stock_add_direct(request):
+    itemid = request.POST.get("modal_itemid")
+    received_quantity = request.POST.get("modal_receiveqty")
+    data = {
+            'item':itemid,
+            'recieved_quantity':int(received_quantity),
+            'created_by':str(request.user),
+        }
+    requests.post(url = f'{WEBSITE_URL}/api/stock/',headers = access_token_generate(),data = data)
+    return redirect('home')
+
+
+
+@login_required(login_url="/acccount/login/")
+def sale_add_direct(request):
+    itemid = request.POST.get("modal_itemid")
+    sold_quantity = request.POST.get("modal_soldqty")
+    data = {
+            'item':itemid,
+            'sold_quantity':int(sold_quantity),
+            'created_by':str(request.user),
+        }
+    requests.post(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate(),data = data)
+    return redirect('home')
