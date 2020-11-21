@@ -33,7 +33,7 @@ body {
   .sidebar {
     z-index:2000;
     top: 5rem;
-     height:190px;
+     height:25%;
      box-shadow: 4px 3px 8px 1px #969696;
      border-radius: 0 0 5px 5px;
   	-webkit-box-shadow: 4px 3px 8px 1px #969696;

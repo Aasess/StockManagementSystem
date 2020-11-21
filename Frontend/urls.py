@@ -14,5 +14,6 @@ urlpatterns = [
     path('stock_add',views.stock_add,name = "stock_add"),
     path('category_add',views.category_add,name="category_add"),
     path('stock_add_modal',views.stock_add_direct,name="stock_add_direct"),
-     path('sale_add_modal',views.sale_add_direct,name="sale_add_direct")
+    path('sale_add_modal',views.sale_add_direct,name="sale_add_direct"),
+    path('record',views.record,name="record") 
 ]

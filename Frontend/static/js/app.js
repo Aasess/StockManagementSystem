@@ -12,6 +12,8 @@ $('#myTable').DataTable({
 const loader = document.querySelector('.loader');
 const content = document.querySelector('.display-content');
 btn_datatable = document.querySelectorAll(".paginate_button");
+money = document.querySelectorAll(".money")
+
 
 function init() {
   setTimeout(() => {
@@ -32,6 +34,10 @@ function datetimepretty(){
 
 init();
 datetimepretty();
+money.forEach((mon)=>{
+  mon.innerText = (parseInt(mon.textContent)).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+})
+
 
 btn_datatable.forEach((test)=>{
   test.addEventListener("click",()=>{

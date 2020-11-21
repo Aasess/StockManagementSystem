@@ -49,7 +49,7 @@ Items-Om Bheri Dental Hospital
                 <th>Price</th>
                 <th>Vendor</th>
                 <th>Remaining Quantity</th>
-                <th>In Stock</th>
+                <th>Status</th>
                 <th></th>
                 
             </tr>
@@ -61,14 +61,14 @@ Items-Om Bheri Dental Hospital
                 <td id="date" class="pl-3">{{ item.created_at }}</td>
                 <td class="pl-4">{{ item.item_name }}</td>
                 <td class="pl-4">{{ item.category_detail.category_name }}</td>
-                <td class="pl-4">{{ item.price }}</td>
+                <td class="pl-4 money">{{ item.price }}</td>
                 <td class="pl-4">{{ item.vendor_detail.name }}</td>
                 <td class="pl-5">{{ item.remaining_quantity }}</td>
                 <td id="is_stock" class="pl-5">
                    {% if item.is_stock %}
-                    <img src ="/static/admin/img/icon-yes.svg">
+                    <img src ="/static/admin/img/icon-yes.svg" title="In stock">
                     {% else %}
-                        <img src ="/static/admin/img/icon-no.svg">
+                        <img src ="/static/admin/img/icon-no.svg" title="Out of stock">
                    {% endif %} 
                 </td>
                 <td>

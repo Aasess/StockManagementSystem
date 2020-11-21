@@ -8,6 +8,11 @@ from django.contrib.auth.models import User
 from .token_generator import access_token_generate
 from StockManagementSystem.settings import WEBSITE_URL
 
+from API.models import Sale,Item,Stock
+from django.db.models import F,Subquery,Sum
+
+import datetime
+
 @login_required(login_url='/account/login/')
 def home(request):
     req = requests.get(url = f'{WEBSITE_URL}/api/item/',headers = access_token_generate())
@@ -191,3 +196,35 @@ def sale_add_direct(request):
         }
     requests.post(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate(),data = data)
     return redirect('home')
+
+
+
+@login_required(login_url="/account/login")
+def record(request):
+    if request.method == "POST":
+        startdate = request.POST.get("startdate")
+        enddate = request.POST.get("enddate")
+        format = '%Y-%m-%d'
+        dt = datetime.datetime.strptime(enddate, format) + datetime.timedelta(days=1)
+        enddate_increase = datetime.datetime.strftime(dt,format)
+
+        items = Item.objects.values('id')
+        sales = Sale.objects.values('item__id','item__item_name','item__price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
+        sale_sq1 = sales.filter(item_id__in = Subquery(items))
+        sale_sq2 = sale_sq1.annotate(sold_quantity_total = Sum('sold_quantity'))
+        sale_result = sale_sq2.annotate(subtotal = F("item__price") * F("sold_quantity_total"))
+
+        stocks = Stock.objects.values('item__id','item__item_name','item__price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
+        stock_sq1 = stocks.filter(item_id__in = Subquery(items))
+        stock_sq2 = stock_sq1.annotate(recieved_quantity_total = Sum('recieved_quantity'))
+        stock_result = stock_sq2.annotate(subtotal = F("item__price") * F("recieved_quantity_total"))
+
+
+        total_sale_sum = sale_result.aggregate(Sum('subtotal'))
+        total_stock_sum = stock_result.aggregate(Sum('subtotal'))
+
+        return render(request,'Frontend/Record.html',{'sale_results':sale_result,'total_sale_sum':total_sale_sum,'stock_results':stock_result,'total_stock_sum':total_stock_sum,'startdate':startdate,'enddate':enddate})
+    else:
+        return render(request,'Frontend/Record.html')
+
+
