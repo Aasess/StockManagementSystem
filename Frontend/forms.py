@@ -1,7 +1,8 @@
 from django import forms
-from API.models import Category,Vendor,Item
+from API.models import Category,Vendor,Item,Sale,Stock
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+import datetime
 
 class ItemAddForm(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -78,6 +79,21 @@ class StockAddForm(forms.Form):
         }
     )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        itemid = cleaned_data['itemid']
+        received_quantity = cleaned_data['received_quantity']
+        currenttime = datetime.datetime.now()
+
+        item = Item.objects.get(pk = itemid)
+        previous_received_item = Stock.objects.values('id','created_at','recieved_quantity','item__id').order_by('-created_at')[:1]
+        for i in previous_received_item:
+            time = i['created_at'] + datetime.timedelta(minutes=5)
+            if(int(itemid) == i["item__id"] and received_quantity == i["recieved_quantity"] and time > currenttime):
+                raise ValidationError(f"Error!! The Item - {item} with same received quantity - {received_quantity} was recently added. Try again to add same item with same quantity after 5 minutes.")
+
+
+
 
 
 class SaleAddForm(forms.Form):
@@ -102,9 +118,15 @@ class SaleAddForm(forms.Form):
         cleaned_data = super().clean()
         itemid = cleaned_data['itemid']
         sold_quantity = cleaned_data['sold_quantity']
-                
+        currenttime = datetime.datetime.now()
+
         item = Item.objects.get(pk = itemid)
-        
+        previous_sold_item = Sale.objects.values('id','created_at','sold_quantity','item__id').order_by('-created_at')[:1]
+        for i in previous_sold_item:
+            time = i['created_at'] + datetime.timedelta(minutes=5)
+            if(int(itemid) == i["item__id"] and sold_quantity == i["sold_quantity"] and time > currenttime):
+                raise ValidationError(f"Error!! The Item - {item} with same sold quantity - {sold_quantity} was recently added. Try again to add same item with same quantity after 5 minutes.")
+
         if(sold_quantity > item.remaining_quantity):
             self.add_error('sold_quantity',f"Error!! Sale quantity cannot be greater than remaining stock quantity for {item.item_name}.")
 
