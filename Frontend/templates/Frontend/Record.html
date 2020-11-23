@@ -31,31 +31,41 @@ Record-Om Bheri Dental Hospital
     margin-top: 20px;
 }
 
+@media (max-width: 767.98px) {
+        .btn-search{
+            width:40px;
+            height:40px;
+            margin-top:10px;   
+        }
+}
 </style>
 
 <h2 class="mt-2">Record List</h2>
 <hr>
 <form action="{% url 'record' %}" method="POST">
     {% csrf_token %}
-<div class="form-group row pl-5">
-    <div class="col-5">
-        <label for="birthday">From:</label>
-        <input type="date" class="form-control" id="startdate" name="startdate" value ="{{startdate}}" required>
+<div class="form-group row justify-content-center align-items-center">
+    <div class="col-10 row justify-content-center align-items-center border rounded shadow pt-4 pb-5">
+        <div class="col-md-5 pt-1">
+            <label for="birthday">From:</label>
+            <input type="date" class="form-control" id="startdate" name="startdate" value ="{{startdate}}" required>
+        </div>
+    
+        <div class="col-md-5 pt-1">
+            <label for="birthday">To:</label>
+            <input type="date" class="form-control" id="enddate" name="enddate" value="{{ enddate }}" required>
+        </div>
+        <div class="col-md-1 pt-1">
+            <button type="submit" class="btn btn-outline-dark btn-sm btn-search" title="search"><span data-feather="search"></span></button>
+        </div>
     </div>
-
-    <div class="col-5">
-        <label for="birthday">To:</label>
-        <input type="date" class="form-control" id="enddate" name="enddate" value="{{ enddate }}" required>
-    </div>
-
-    <button type="submit" class="btn btn-outline-dark btn-sm btn-search" title="search"><span data-feather="search"></span></button>
 </div>
 </form>
 <hr class="mt-4 mb-2">
 <nav>
     <div class="nav nav-pills" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link btn active font-weight-bold mb-4" id="nav-sale-tab" class="sale-tab" data-toggle="tab" href="#nav-sale" role="tab" aria-controls="nav-sale" aria-selected="false"><span data-feather="layers"></span> Sale</a>
-        <a class="nav-item nav-link btn font-weight-bold mb-4" id="nav-stock-tab" class="stock-tab" data-toggle="tab" href="#nav-stock" role="tab" aria-controls="nav-stock" aria-selected="true"><span data-feather="bar-chart-2"></span> Stock</a>
+        <a class="nav-item nav-link btn active font-weight-bold mb-4 itemaddbtn" id="nav-sale-tab" class="sale-tab" data-toggle="tab" href="#nav-sale" role="tab" aria-controls="nav-sale" aria-selected="false"><span data-feather="layers"></span> Sale</a>
+        <a class="nav-item nav-link btn font-weight-bold mb-4 itemaddbtn" id="nav-stock-tab" class="stock-tab" data-toggle="tab" href="#nav-stock" role="tab" aria-controls="nav-stock" aria-selected="true"><span data-feather="bar-chart-2"></span> Stock</a>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
