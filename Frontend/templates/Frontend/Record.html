@@ -77,7 +77,7 @@ Record-Om Bheri Dental Hospital
                     {% for result in stock_results %}
                     <tr>
                         <td class="pl-4">{{ result.item__item_name }}</td>
-                        <td class="pl-4 money">{{ result.item__price }}</td>
+                        <td class="pl-4 money">{{ result.price }}</td>
                         <td class="pl-5">{{ result.recieved_quantity_total }}</td>
                         <td class="pl-5 money">{{ result.subtotal }}</td>
                         <td id="is_stock" class="pl-5">
@@ -116,7 +116,7 @@ Record-Om Bheri Dental Hospital
             {% for result in sale_results %}
             <tr>
                 <td class="pl-4">{{ result.item__item_name }}</td>
-                <td class="pl-4 money">{{ result.item__price }}</td>
+                <td class="pl-4 money">{{ result.price }}</td>
                 <td class="pl-5">{{ result.sold_quantity_total }}</td>
                 <td class="pl-5 money">{{ result.subtotal }}</td>
                 <td id="is_stock" class="pl-5">

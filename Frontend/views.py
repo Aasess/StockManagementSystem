@@ -210,15 +210,17 @@ def record(request):
         enddate_increase = datetime.datetime.strftime(dt,format)
 
         items = Item.objects.values('id')
-        sales = Sale.objects.values('item__id','item__item_name','item__price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
+        sales = Sale.objects.values('item__id','item__item_name','price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
         sale_sq1 = sales.filter(item_id__in = Subquery(items))
         sale_sq2 = sale_sq1.annotate(sold_quantity_total = Sum('sold_quantity'))
-        sale_result = sale_sq2.annotate(subtotal = F("item__price") * F("sold_quantity_total"))
+        sale_result = sale_sq2.annotate(subtotal = F("price") * F("sold_quantity_total"))
+        # print(sale_result.query)
 
-        stocks = Stock.objects.values('item__id','item__item_name','item__price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
+        stocks = Stock.objects.values('item__id','item__item_name','price','item__is_stock').filter(created_at__range=[startdate,enddate_increase])
         stock_sq1 = stocks.filter(item_id__in = Subquery(items))
         stock_sq2 = stock_sq1.annotate(recieved_quantity_total = Sum('recieved_quantity'))
-        stock_result = stock_sq2.annotate(subtotal = F("item__price") * F("recieved_quantity_total"))
+        stock_result = stock_sq2.annotate(subtotal = F("price") * F("recieved_quantity_total"))
+        # print(stock_result.query)
 
 
         total_sale_sum = sale_result.aggregate(Sum('subtotal'))
@@ -235,6 +237,3 @@ def record(request):
     else:
         today = str(datetime.datetime.now().date())
         return(get_record(today, today))
-        # return render(request,'Frontend/Record.html')
-        # return render(request,'Frontend/Record.html',{'startdate':today,'enddate':today})
-

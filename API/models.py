@@ -36,7 +36,7 @@ class Item(models.Model):
         null = True,
         related_name = "items_cat"
     )
-    price = models.PositiveIntegerField(default=0)
+    # price = models.PositiveIntegerField(default=0)
     vendor = models.ForeignKey(
         Vendor, #one vendor has many items
         on_delete = models.SET_NULL,
@@ -64,6 +64,7 @@ class Stock(models.Model):
         null = True,
         related_name = "stocks"
         )
+    price = models.PositiveIntegerField(default=0)
     recieved_quantity = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -78,6 +79,7 @@ class Sale(models.Model):
         null = True,
         related_name = "sales"
         )
+    price = models.PositiveIntegerField(default=0)
     sold_quantity = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
