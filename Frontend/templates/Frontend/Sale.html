@@ -44,6 +44,7 @@ Sales-Om Bheri Dental Hospital
                 <th>Item Name</th>
                 <th>Category</th>
                 <th>Sold Quantity</th>
+                <th>Price</th>
                 <th>Vendor</th>
             </tr>
         </thead>
@@ -55,6 +56,7 @@ Sales-Om Bheri Dental Hospital
                 <td class="pl-4">{{ sale.item_detail.item_name }}</td>
                 <td class="pl-4">{{ sale.item_detail.category_detail.category_name }}</td>
                 <td class="pl-5">{{ sale.sold_quantity }}</td>
+                <td class="pl-4 money">{{ sale.price }}</td>
                 <td class="pl-4">{{ sale.item_detail.vendor_detail.name }}</td>
             </tr>
             {% endfor %}

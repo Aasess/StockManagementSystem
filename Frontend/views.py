@@ -29,11 +29,9 @@ def item_add(request):
             itemname = form.cleaned_data['item_name']
             categoryid = form.cleaned_data['category']
             vendorid = form.cleaned_data['vendor']
-            price = form.cleaned_data['price']
             
             data = {
                 'item_name':itemname,
-                'price':int(price),
                 'category':categoryid,
                 'vendor':vendorid,
                 'created_by':str(request.user),
@@ -100,10 +98,12 @@ def sale_add(request):
         if form.is_valid():
             itemid = form.cleaned_data['itemid']
             sold_quantity = form.cleaned_data['sold_quantity']
+            price = form.cleaned_data['price']
             
             data = {
                 'item':itemid,
                 'sold_quantity':int(sold_quantity),
+                'price':float(price),
                 'created_by':str(request.user),
             }
             requests.post(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate(),data = data)
@@ -133,10 +133,12 @@ def stock_add(request):
         if form.is_valid():
             itemid = form.cleaned_data['itemid']
             received_quantity = form.cleaned_data['received_quantity']
+            price = form.cleaned_data['price']
             
             data = {
                 'item':itemid,
                 'recieved_quantity':int(received_quantity),
+                'price':float(price),
                 'created_by':str(request.user),
             }
             requests.post(url = f'{WEBSITE_URL}/api/stock/',headers = access_token_generate(),data = data)
@@ -175,9 +177,11 @@ def category_add(request):
 def stock_add_direct(request):
     itemid = request.POST.get("modal_itemid")
     received_quantity = request.POST.get("modal_receiveqty")
+    price = request.POST.get("modal_price_stock")
     data = {
             'item':itemid,
             'recieved_quantity':int(received_quantity),
+            'price':float(price),
             'created_by':str(request.user),
         }
     requests.post(url = f'{WEBSITE_URL}/api/stock/',headers = access_token_generate(),data = data)
@@ -189,9 +193,11 @@ def stock_add_direct(request):
 def sale_add_direct(request):
     itemid = request.POST.get("modal_itemid")
     sold_quantity = request.POST.get("modal_soldqty")
+    price = request.POST.get("modal_price_sale")
     data = {
             'item':itemid,
             'sold_quantity':int(sold_quantity),
+            'price':float(price),
             'created_by':str(request.user),
         }
     requests.post(url = f'{WEBSITE_URL}/api/sale/',headers = access_token_generate(),data = data)

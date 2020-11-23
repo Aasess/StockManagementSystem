@@ -34,8 +34,8 @@ admin.site.register(Vendor, vendor_admin)
 
 
 class stock_admin(ImportExportModelAdmin):
-    fields = ['item', 'price', 'recieved_quantity']
-    list_display = ['item', 'price', 'recieved_quantity', 'created_at', 'updated_at', 'created_by']
+    fields = ['item', 'recieved_quantity', 'price']
+    list_display = ['item', 'recieved_quantity','price', 'created_at', 'updated_at', 'created_by']
     # auto_complete = ['item']
 
     # ADDING CURRENT USER TO created_by column when adding item
@@ -47,8 +47,8 @@ admin.site.register(Stock, stock_admin)
 
 
 class sale_admin(ImportExportModelAdmin):
-    fields = ['item', 'price', 'sold_quantity']
-    list_display = ['item', 'price', 'sold_quantity', 'created_at', 'updated_at', 'created_by']
+    fields = ['item', 'sold_quantity', 'price']
+    list_display = ['item', 'sold_quantity', 'price', 'created_at', 'updated_at', 'created_by']
 
     # ADDING CURRENT USER TO created_by column when adding item
     def save_model(self, request, obj, form, change):

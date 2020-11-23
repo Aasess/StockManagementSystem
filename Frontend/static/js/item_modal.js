@@ -17,13 +17,13 @@ items_detail.forEach((item_detail)=>{
     item_detail.addEventListener("click",(e)=>{
         item_id.value = item_detail.text;
         item_name.value = item_detail.parentElement.parentElement.children[1].innerText
-        item_vendor.value = item_detail.parentElement.parentElement.children[4].innerText
-        item_qty.value = item_detail.parentElement.parentElement.children[5].innerText
+        item_vendor.value = item_detail.parentElement.parentElement.children[3].innerText
+        item_qty.value = item_detail.parentElement.parentElement.children[4].innerText
 
         item_id_sale.value = item_detail.text;
         item_name_sale.value = item_detail.parentElement.parentElement.children[1].innerText
-        item_vendor_sale.value = item_detail.parentElement.parentElement.children[4].innerText
-        item_qty_sale.value = item_detail.parentElement.parentElement.children[5].innerText
+        item_vendor_sale.value = item_detail.parentElement.parentElement.children[3].innerText
+        item_qty_sale.value = item_detail.parentElement.parentElement.children[4].innerText
         item_sold_qty.max = item_qty_sale.value;
 })
 })

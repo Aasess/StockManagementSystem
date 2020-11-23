@@ -16,17 +16,11 @@ class ItemAddForm(forms.Form):
         category = forms.ChoiceField(label="Select Category",choices=[('','-------------------')]+[(x.id,x.category_name) for x in Category.objects.all()])
     except:
         category = forms.ChoiceField(choices = [('','---------------------')])
-    price = forms.IntegerField(widget=forms.NumberInput)
     try:
         vendor = forms.ChoiceField(label="Select Vendor",choices=[('','-------------------')]+[(x.id,x.name) for x in Vendor.objects.all()])
     except:
         vendor = forms.ChoiceField(choices = [('','---------------------')])
     
-    price.widget.attrs.update(
-        {
-            'min': 0
-        }
-    )
    
    
     def clean(self):
@@ -79,6 +73,14 @@ class StockAddForm(forms.Form):
         }
     )
 
+    price = forms.IntegerField(widget=forms.NumberInput)
+    price.widget.attrs.update(
+        {
+            'min': 0
+        }
+    )
+
+
     def clean(self):
         cleaned_data = super().clean()
         itemid = cleaned_data['itemid']
@@ -113,6 +115,13 @@ class SaleAddForm(forms.Form):
             'min': 1
         }
     )
+    price = forms.IntegerField(widget=forms.NumberInput)
+    price.widget.attrs.update(
+        {
+            'min': 0
+        }
+    )
+
 
     def clean(self):
         cleaned_data = super().clean()

@@ -45,6 +45,7 @@ Stocks-Om Bheri Dental Hospital
                 <th>Item Name</th>
                 <th>Category</th>
                 <th>Received Quantity</th>
+                <th>Price</th>
                 <th>Vendor</th>
             </tr>
         </thead>
@@ -56,6 +57,7 @@ Stocks-Om Bheri Dental Hospital
                 <td class="pl-4">{{ stock.item_detail.item_name }}</td>
                 <td class="pl-4">{{ stock.item_detail.category_detail.category_name }}</td>
                 <td class="pl-5">{{ stock.recieved_quantity }}</td>
+                <td class="pl-4 money">{{ stock.price }}</td>
                 <td class="pl-4">{{ stock.item_detail.vendor_detail.name }}</td>
             </tr>
             {% endfor %}
