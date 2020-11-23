@@ -201,9 +201,10 @@ def sale_add_direct(request):
 
 @login_required(login_url="/account/login")
 def record(request):
-    if request.method == "POST":
-        startdate = request.POST.get("startdate")
-        enddate = request.POST.get("enddate")
+
+    def get_record(x, y):
+        startdate = x
+        enddate = y
         format = '%Y-%m-%d'
         dt = datetime.datetime.strptime(enddate, format) + datetime.timedelta(days=1)
         enddate_increase = datetime.datetime.strftime(dt,format)
@@ -224,7 +225,16 @@ def record(request):
         total_stock_sum = stock_result.aggregate(Sum('subtotal'))
 
         return render(request,'Frontend/Record.html',{'sale_results':sale_result,'total_sale_sum':total_sale_sum,'stock_results':stock_result,'total_stock_sum':total_stock_sum,'startdate':startdate,'enddate':enddate})
-    else:
-        return render(request,'Frontend/Record.html')
 
+
+    if request.method == "POST":
+        startdate = request.POST.get("startdate")
+        enddate = request.POST.get("enddate")
+        return(get_record(startdate, enddate))
+
+    else:
+        today = str(datetime.datetime.now().date())
+        return(get_record(today, today))
+        # return render(request,'Frontend/Record.html')
+        # return render(request,'Frontend/Record.html',{'startdate':today,'enddate':today})
 
