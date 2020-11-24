@@ -1,4 +1,4 @@
-btn_datatable = document.querySelectorAll(".paginate_button");
+
 
 function modal_display(){
     var items_detail = document.querySelectorAll("#stock_sale_add");
@@ -29,12 +29,3 @@ items_detail.forEach((item_detail)=>{
 })
 
 }
-
-modal_display();
-
-
-btn_datatable.forEach((test)=>{
-    test.addEventListener("click",()=>{
-        modal_display();
-    })
-});

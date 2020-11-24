@@ -70,7 +70,7 @@ Items-Om Bheri Dental Hospital
                    {% endif %} 
                 </td>
                 <td>
-                    <a href="#" data-toggle="modal" id="stock_sale_add" data-target="#exampleModal"><img src="/static/admin/img/icon-addlink.svg" alt="Add" title="Add stock or sale"><span id="id">{{ item.id }}</span></a>
+                    <a href="#" data-toggle="modal" id="stock_sale_add" data-target="#exampleModal"><img src="/static/admin/img/icon-addlink.svg" alt="Add" title="Add stock or sale" onclick="modal_display()"><span id="id">{{ item.id }}</span></a>
                 </td>
             </tr>
             {% endfor %}

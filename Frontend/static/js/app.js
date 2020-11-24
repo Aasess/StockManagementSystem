@@ -3,7 +3,9 @@ $('#myTable').DataTable({
     "columnDefs": [
       { "orderable": false,
         "targets": [-1,-2]
-      }
+      },
+      { data: 'created_at', render: datetimepretty() },
+      { data: 'price', render: moneypretty() }
     ]
 });
 
@@ -12,7 +14,7 @@ $('#myTable').DataTable({
 const loader = document.querySelector('.loader');
 const content = document.querySelector('.display-content');
 btn_datatable = document.querySelectorAll(".paginate_button");
-money = document.querySelectorAll(".money")
+
 
 
 function init() {
@@ -33,18 +35,14 @@ function datetimepretty(){
 }
 
 init();
-datetimepretty();
-money.forEach((mon)=>{
+
+function moneypretty(){
+  money = document.querySelectorAll(".money")
+  money.forEach((mon)=>{
   mon.innerText = (parseInt(mon.textContent)).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 })
 
-
-btn_datatable.forEach((test)=>{
-  test.addEventListener("click",()=>{
-      datetimepretty();
-  })
-});
-
+}
 
 
 $('#myModal').on('shown.bs.modal', function () {
