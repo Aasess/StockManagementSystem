@@ -76,8 +76,8 @@ Record-Om Bheri Dental Hospital
                 <thead class="thead-dark">
                     <tr>
                         <th>Item Name</th>
-                        <th>Price</th>
                         <th>Total Received Quantity</th>
+                        <th>Unit Price</th>
                         <th>Sub Total</th>
                         <th>Status</th>
                     </tr>
@@ -87,8 +87,8 @@ Record-Om Bheri Dental Hospital
                     {% for result in stock_results %}
                     <tr>
                         <td class="pl-4">{{ result.item__item_name }}</td>
-                        <td class="pl-4 money">{{ result.price }}</td>
                         <td class="pl-5">{{ result.recieved_quantity_total }}</td>
+                        <td class="pl-4 money">{{ result.price }}</td>
                         <td class="pl-5 money">{{ result.subtotal }}</td>
                         <td id="is_stock" class="pl-5">
                         {% if result.item__is_stock %}
@@ -115,8 +115,8 @@ Record-Om Bheri Dental Hospital
         <thead class="thead-dark">
             <tr>
                 <th>Item Name</th>
-                <th>Price</th>
                 <th>Total Sold Quantity</th>
+                <th>Unit Price</th>
                 <th>Sub Total</th>
                 <th>Status</th>
             </tr>
@@ -126,8 +126,8 @@ Record-Om Bheri Dental Hospital
             {% for result in sale_results %}
             <tr>
                 <td class="pl-4">{{ result.item__item_name }}</td>
-                <td class="pl-4 money">{{ result.price }}</td>
                 <td class="pl-5">{{ result.sold_quantity_total }}</td>
+                <td class="pl-4 money">{{ result.price }}</td>
                 <td class="pl-5 money">{{ result.subtotal }}</td>
                 <td id="is_stock" class="pl-5">
                 {% if result.item__is_stock %}

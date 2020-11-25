@@ -73,7 +73,7 @@ class StockAddForm(forms.Form):
         }
     )
 
-    price = forms.IntegerField(widget=forms.NumberInput)
+    price = forms.IntegerField(label="Unit Price", widget=forms.NumberInput)
     price.widget.attrs.update(
         {
             'min': 0
@@ -115,7 +115,7 @@ class SaleAddForm(forms.Form):
             'min': 1
         }
     )
-    price = forms.IntegerField(widget=forms.NumberInput)
+    price = forms.IntegerField(label="Unit Price", widget=forms.NumberInput)
     price.widget.attrs.update(
         {
             'min': 0
